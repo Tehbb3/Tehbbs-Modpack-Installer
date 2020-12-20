@@ -4,12 +4,12 @@ A modpack installer that I created to make things easier for others when install
 
 you will have to create the directory structure like this:
 
-[any folder]
+(any folder)
            |-run.bat
-           |-[data]
+           |-(data)
                   |-forge.jar
-                  |-[mods]
-                         |-[Put your mods in here]
+                  |-(mods)
+                         |-(Put your mods in here)
 
 
 
