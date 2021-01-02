@@ -1,6 +1,6 @@
  @ECHO OFF
 rem Config stuff:
-set VER= 1.2
+set VER= 1.3
 set DCOL= 07
 set MDCNT=0
 set COLA= 09
@@ -52,6 +52,7 @@ if defined dbg (
   call :c 0a "[Debug]"&call :c %DCOL% "Current error code [%ERRORLEVEL%]" /n &call :cb
 )
 goto :choice
+rem cool pic of bird:
 :pic
 call :c 0E "                ,      .-;" /n
 call :c 0E "             ,  |\    / /  __," /n
@@ -87,6 +88,7 @@ call :c 02 "  /  .!q!    _/'"&call :c 05 "`--; ;  `.  ;" /n
 call :c 02 "   .=!q!  _/'      "&call :c 05 "`-..__,-'" /n
 call :c 02 "    __/'" /n&call :cb
 @ goto :console
+rem pog mode:
 :pog
 cls
 title POGGERS POG POGERATOR!!!!![Ver %VER%]
@@ -187,7 +189,7 @@ rem run console itself:
 set "c="
 call :c %DCOL% ">"&call :cb
 set /P c=
-rem COMMANDS:
+rem Run functions
 if /I "%c%" EQU "debug" (
 	if defined dbg (
 		set "dbg="
@@ -225,7 +227,23 @@ if /I "%c%" EQU "debug" (
 									if /I "%c%" EQU "cool berd" (
 										goto :pic
 									) else (
-										call :c 0A "[TMI]"&call :c %DCOL% "Unknown or invalid command" /n       
+										if /I "%c%" EQU "build" (
+											call :c 0a "[TMI]"&call :c %DCOL% "Creating directory system" /n &call :cb
+											if exist "%appdata%\.minecraft\mods" (
+												robocopy "%appdata%\.minecraft\mods" "%cd%\data\mods" /e
+												call :c 0a "[TMI]"&call :c %DCOL% "Done building" /n &call :cb
+											) else (
+												call :c 0A "[TMI]"&call :c %DCOL% "No mods installed" /n&call :cb
+												call :c 0A "     "&call :c %DCOL% "Nothing to be packaged" /n&call :cb
+											)
+										) else (
+											if /i "%c:~0,6%"=="delete" (
+												call :dlet %c%
+											) else (
+												call :c 0A "[TMI]"&call :c %DCOL% "Unknown or invalid command" /n  
+												call :c 0A "     "&call :c %DCOL% "Type [ help ] for a list of commands" /n &call :cb      
+											)
+										)
 									)
 								)
 							)
@@ -236,10 +254,10 @@ if /I "%c%" EQU "debug" (
 		)
 	)
 )
-if /I "%c%" EQU "mcnt" (
-	call :c 0a "[TMI]"&call :c %DCOL% "Bundled mods   [%MDCNT%]" /n
-	call :c 0a "[TMI]"&call :c %DCOL% "Installed mods [%IMDNT%]" /n &call :cb
-) else (
+rem if /I "%c%" EQU "mcnt" (
+rem 	call :c 0a "[TMI]"&call :c %DCOL% "Bundled mods   [%MDCNT%]" /n
+rem 	call :c 0a "[TMI]"&call :c %DCOL% "Installed mods [%IMDNT%]" /n &call :cb
+rem ) else (
 rem call :c 0A "[TMI]"&call :c %DCOL% "Unknown or invalid command" /n
 @ goto :console 
 :compare
@@ -271,6 +289,54 @@ For /R "%Folder2%" %%x In (*.*) Do (
 	)
 )
 @ goto :console 
+
+
+
+
+
+:dlet
+if defined dbg (
+  call :c 0a "[Debug]"&call :c %DCOL% "Command perameters: %~1 %~2 %~3" /n &call :cb
+)
+if /I "%~2" EQU "b" (
+	call :c 0A "[TMI]"&call :c %DCOL% "Removing bundled mods..." /n&call :cb
+	if exist "%cd%\data\mods" (
+		rmdir /s /q "%cd%\data\mods"
+		call :c 0A "[TMI]"&call :c %DCOL% "Done" /n&call :cb
+	) else (
+  		call :c 0A "[TMI]"&call :c %DCOL% "Directory does not exist" /n&call :cb
+  		call :c 0A "     "&call :c %DCOL% "No mods to be deleted" /n&call :cb
+  	)
+) else (
+  if /I "%~2" EQU "i" (
+  	call :c 0A "[TMI]"&call :c %DCOL% "Removing installed mods..." /n&call :cb
+  	if exist "%appdata%\.minecraft\mods" (
+  		rmdir /s /q "%appdata%\.minecraft\mods"
+  		call :c 0A "[TMI]"&call :c %DCOL% "Done" /n&call :cb
+  	) else (
+  		call :c 0A "[TMI]"&call :c %DCOL% "Directory does not exist" /n&call :cb
+  		call :c 0A "     "&call :c %DCOL% "No mods to be deleted" /n&call :cb
+  	)
+  ) else (
+	if /I "%~2" EQU "" (
+	  call :c 0A "[TMI]"&call :c %DCOL% "Command requires a perameter" /n
+	  call :c 0A "     "&call :c %DCOL% "Available Perameters: bundled [b] or installed [i]" /n
+	  call :c 0A "     "&call :c %DCOL% "E.g:[ ls i ] will list installed mods" /n&call :cb
+	) else (
+	  call :c 0A "[TMI]"&call :c %DCOL% "Invalid parameter" /n
+	  call :c 0A "     "&call :c %DCOL% "Available Perameters: bundled [b] or installed [i]" /n
+	  call :c 0A "     "&call :c %DCOL% "E.g:[ ls i ] will list installed mods" /n&call :cb
+	)
+  )
+)
+@ goto :console
+
+
+
+
+
+
+
 :ls
 if defined dbg (
   call :c 0a "[Debug]"&call :c %DCOL% "Command perameters: %~1 %~2" /n &call :cb
@@ -313,10 +379,11 @@ call :c %DCOL% "    ls        - Lists a mod directory use i or b parameters     
 call :c %DCOL% "    el        - Outputs current error level                                      " /n
 call :c %DCOL% "    compare   - Compares the mods bundled and the mods installed                 " /n
 call :c %DCOL% "    debug     - Toggles debug mode                                               " /n
-call :c %DCOL% "    fresh     - Resets the console                                               " /n
+call :c %DCOL% "    fresh     - Resets the console environment                                   " /n
 call :c %DCOL% "    cls       - Clears the console                                               " /n
-rem call :c %DCOL% "    mcnt      - Displays the number of installed and bundled mods" /n
-call :c %DCOL% "    " /n
+rem call :c %DCOL% "    mcnt      - Displays the number of installed and bundled mods                " /n      BROKEN ATM
+call :c %DCOL% "    Build     - Builds file system and adds mods from installed mod directory    " /n
+call :c %DCOL% "    Delete    - Deletes a mod directory use i or b parameters                    " /n
 call :c %DCOL% "    " /n
 call :c %DCOL% "    Note: More features are still to be added" /n
 call :cb
@@ -328,7 +395,7 @@ if exist "%temp%\color.psm1" (
 	del "%temp%\color.psm1"
 )
 exit /b
-:c <color pair> <string> </n>
+:c
 setlocal enabledelayedexpansion
 set "colors=0-black;1-darkblue;2-darkgreen;3-darkcyan;4-darkred;5-darkmagenta;6-darkyellow;7-gray;8-darkgray;9-blue;a-green;b-cyan;c-red;d-magenta;e-yellow;f-white"
 set "p=%~1"
