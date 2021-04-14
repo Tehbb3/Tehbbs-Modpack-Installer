@@ -1,5 +1,8 @@
  @ECHO OFF
 rem Config stuff:
+rem MC version number:
+set MCVER=
+
 set VER= 1.3
 set DCOL= 07
 set MDCNT=0
@@ -9,37 +12,19 @@ set COLC= 07
 title Tehbb's Modpack Installer [Ver %VER%]
 set q=^"
 rem Program start:
-rem Count bundled mods: seems broken currently
-rem cd %cd%\data\mods
-rem for /f %%A in ('dir ^| find "File(s)"') do set MDCNT=%%A
-rem for /f %%A in ('dir "%appdata%\.minecraft\mods" ^| find "File(s)"') do set IMDNT=%%A
-rem cd %~dp0
-rem echo MDCNT %MDCNT%
-rem echo IMDCNT %IMDNT%
 :pstart
-rem call :c 0a "[Debug]"&call :c %DECOL% "b"&call :c %DCOL% "c" /n&call :cb
-call :c %COLC% "=================================================================================" /n
-call :c %COLA% "  ______     __    __    __   _      "&call :c 0A "    __  ___          __                 __  " /n
-call :c %COLA% " /_  __/__  / /_  / /_  / /_ ( )_____"&call :c 0A "   /  |/  /___  ____/ /___  ____ ______/ /__" /n
-call :c %COLA% "  / / / _ \/ __ \/ __ \/ __ \|// ___/"&call :c %COLB% "  / /|_/ / __ \/ __  / __ \/ __ `/ ___/ //_/" /n
-call :c %COLA% " / / /  __/ / / / /_/ / /_/ / (__  ) "&call :c %COLB% " / /  / / /_/ / /_/ / /_/ / /_/ / /__/ ,<   " /n
-call :c %COLA% "/_/ _\___/_/ /_/_.___/_.___/ /____/  "&call :c %COLB% "/_/  /_/\____/\__,_/ .___/\__,_/\___/_/|_|  " /n
-call :c %COLC% "   /  _/___  _____/ /_____ _/ / /__  _____      "&call :c %COLB% "       /_/                       " /n
-call :c %COLC% "   / // __ \/ ___/ __/ __ `/ / / _ \/ ___/                                       " /n
-call :c %COLC% " _/ // / / (__  ) /_/ /_/ / / /  __/ /                                           " /n
-call :c %COLC% "/___/_/ /_/____/\__/\__,_/_/_/\___/_/                             "&call :c %DCOL% " Version%VER%  " /n
-call :c %COLC% "=================================================================================" /n&call :cb
-rem :::  ______     __    __    __   _          __  ___          __                 __  
-rem ::: /_  __/__  / /_  / /_  / /_ ( )_____   /  |/  /___  ____/ /___  ____ ______/ /__
-rem :::  / / / _ \/ __ \/ __ \/ __ \|// ___/  / /|_/ / __ \/ __  / __ \/ __ `/ ___/ //_/
-rem ::: / / /  __/ / / / /_/ / /_/ / (__  )  / /  / / /_/ / /_/ / /_/ / /_/ / /__/ ,<   
-rem :::/_/ _\___/_/ /_/_.___/_.___/ /____/  /_/  /_/\____/\__,_/ .___/\__,_/\___/_/|_|  
-rem :::   /  _/___  _____/ /_____ _/ / /__  _____             /_/                       
-rem :::   / // __ \/ ___/ __/ __ `/ / / _ \/ ___/                                       
-rem ::: _/ // / / (__  ) /_/ /_/ / / /  __/ /                                           
-rem :::/___/_/ /_/____/\__/\__,_/_/_/\___/_/                                
-rem :::                                                                                 
-rem for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A
+
+:::  ______     __    __    __   _          __  ___          __                 __  
+::: /_  __/__  / /_  / /_  / /_ ( )_____   /  |/  /___  ____/ /___  ____ ______/ /__
+:::  / / / _ \/ __ \/ __ \/ __ \|// ___/  / /|_/ / __ \/ __  / __ \/ __ `/ ___/ //_/
+::: / / /  __/ / / / /_/ / /_/ / (__  )  / /  / / /_/ / /_/ / /_/ / /_/ / /__/ ,<   
+:::/_/ _\___/_/ /_/_.___/_.___/ /____/  /_/  /_/\____/\__,_/ .___/\__,_/\___/_/|_|  
+:::   /  _/___  _____/ /_____ _/ / /__  _____             /_/                       
+:::   / // __ \/ ___/ __/ __ `/ / / _ \/ ___/                                       
+::: _/ // / / (__  ) /_/ /_/ / / /  __/ /                                           
+:::/___/_/ /_/____/\__/\__,_/_/_/\___/_/                                
+:::                                                                                 
+for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A
 for /l %%i in (1,1,17) do echo:
 :choice
 echo Have you installed the correct version of forge yet? [Type "y" or "n"]
@@ -53,41 +38,7 @@ if defined dbg (
 )
 goto :choice
 rem cool pic of bird:
-:pic
-call :c 0E "                ,      .-;" /n
-call :c 0E "             ,  |\    / /  __," /n
-call :c 0E "             |\ '.`-.|  |.'.-'" /n
-call :c 0E "              \`'-:  `; : /" /n
-call :c 0E "               `-._'.  \'|" /n
-call :c 0E "              ,_.-=` ` `  ~,_" /n
-call :c 0E "               '--,.    "&call :c 0c ".-. "&call :c 0E ",=!q!." /n
-call :c 0E "                 /     "&call :c 0c "{ "&call :c 0A "* "&call :c 0c ")"&call :c 0E "`"&call :c 06 ";-."&call :c 0E "}" /n
-call :c 0E "                 |      "&call :c 0c "'-' "&call :c 06 "/__ |" /n
-call :c 0E "                 /          "&call :c 06 "\_,\|" /n
-call :c 0E "                 |          (" /n
-call :c 0E "             "&call :c 0c "__ "&call :c 0E "/ '          \" /n
-call :c 02 "     /\_    "&call :c 0c "/,'`"&call :c 0E "|     '   "&call :c 0c ".-~!q!~~-." /n
-call :c 02 "     |`.\_ "&call :c 0c "|   "&call :c 0E "/  ' ,    "&call :c 0c "/        \" /n
-call :c 02 "   _/  `, \"&call :c 0c "|  "&call :c 0E "; ,     . "&call :c 0c "|  ,  '  . |" /n
-call :c 02 "   \   `,  "&call :c 0c "|  "&call :c 0E "|  ,  ,   "&call :c 0c "|  :  ;  : |" /n
-call :c 02 "   _\  `,  "&call :c 0c "\  "&call :c 0E "|.     ,  "&call :c 0c "|  |  |  | |" /n
-call :c 02 "   \`  `.   "&call :c 0c "\ "&call :c 0E "|   '     "&call :c 0A "|"&call :c 0c "\_|-'|_,'\|" /n
-call :c 02 "   _\   `,   "&call :c 0A "`"&call :c 0E "\  '  . ' "&call :c 0A "| |  | |  |           "&call :c 02 "__" /n
-call :c 02 "   \     `,   "&call :c 0E "| ,  '    "&call :c 0A "|_/'-|_\_/     "&call :c 02 "__ ,-;` /" /n
-call :c 02 "    \    `,    "&call :c 0E "\ .  , ' .| | | | |   "&call :c 02 "_/' ` _=`|" /n
-call :c 02 "     `\    `,   "&call :c 0E "\     ,  | | | | |"&call :c 02 "_/'   .=!q!  /" /n
-call :c 02 "     \`     `,   "&call :c 0E "`\      \/|,| ;"&call :c 02 "/'   .=!q!    |" /n
-call :c 02 "      \      `,    "&call :c 0E "`\' ,  | ; "&call :c 02 "/'    =!q!    _/" /n
-call :c 02 "       `\     `,  "&call :c 05 ".-!q!!q!-. "&call :c 0E "': "&call :c 02 "/'    =!q!     /" /n
-call :c 02 "    jgs _`\    ;"&call :c 05 "_{  '   ; "&call :c 02 "/'    =!q!      /" /n
-call :c 02 "       _\`-/__"&call :c 05 ".~  `."&call :c 07 "8"&call :c 05 ".'.!q!`~-. "&call :c 02 "=!q!     _,/" /n
-call :c 02 "    __\      "&call :c 05 "{   '-."&call :c 07 "|"&call :c 05 ".'.--~'`}"&call :c 02 "    _/" /n
-call :c 02 "    \    .=!q!` "&call :c 05 "}.-~!q!'"&call :c 0D "u"&call :c 05 "'-. '-..'  "&call :c 02 "__/" /n
-call :c 02 "   _/  .!q!    "&call :c 05 "{  -'.~('-._,.'"&call :c 02 "\_,/" /n
-call :c 02 "  /  .!q!    _/'"&call :c 05 "`--; ;  `.  ;" /n
-call :c 02 "   .=!q!  _/'      "&call :c 05 "`-..__,-'" /n
-call :c 02 "    __/'" /n&call :cb
-@ goto :console
+
 rem pog mode:
 :pog
 cls
@@ -104,7 +55,7 @@ exit
 cls
 for /l %%i in (1,1,26) do echo:
 echo Follow through the setup make sure you select [install client] 
-echo Note: you may have to install and run the 1.12.2 version of minecraft before you can install forge
+echo Note: you may have to install and run the %MCVER% version of minecraft before you can install forge
 echo when you have finished installing forge you can press any key to continue
 data\forge.jar
 if defined dbg (
@@ -148,20 +99,12 @@ call :c 0a "[Debug]"&call :c %DCOL% "Current error code [%ERRORLEVEL%]" /n &call
 echo Copying...
 ROBOCOPY "%cd%\data\mods" "%appdata%\.minecraft\mods"  /NDL /NJH /NJS /np /NFL
 cls
-call :c %COLC% "=================================================================================" /n
-call :c %COLA% "  ______     __    __    __   _      "&call :c 0A "    __  ___          __                 __  " /n
-call :c %COLA% " /_  __/__  / /_  / /_  / /_ ( )_____"&call :c 0A "   /  |/  /___  ____/ /___  ____ ______/ /__" /n
-call :c %COLA% "  / / / _ \/ __ \/ __ \/ __ \|// ___/"&call :c %COLB% "  / /|_/ / __ \/ __  / __ \/ __ `/ ___/ //_/" /n
-call :c %COLA% " / / /  __/ / / / /_/ / /_/ / (__  ) "&call :c %COLB% " / /  / / /_/ / /_/ / /_/ / /_/ / /__/ ,<   " /n
-call :c %COLA% "/_/ _\___/_/ /_/_.___/_.___/ /____/  "&call :c %COLB% "/_/  /_/\____/\__,_/ .___/\__,_/\___/_/|_|  " /n
-call :c %COLC% "   /  _/___  _____/ /_____ _/ / /__  _____      "&call :c %COLB% "       /_/                       " /n
-call :c %COLC% "   / // __ \/ ___/ __/ __ `/ / / _ \/ ___/                                       " /n
-call :c %COLC% " _/ // / / (__  ) /_/ /_/ / / /  __/ /                                           " /n
-call :c %COLC% "/___/_/ /_/____/\__/\__,_/_/_/\___/_/                             "&call :c %DCOL% " Version%VER%  " /n
-call :c %COLC% "=================================================================================" /n&call :cb
+rem title:
+for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A
+
 for /l %%i in (1,1,11) do echo:
 )
-echo Now open the minecraft launcher select the forge 1.12.2 profile than run the game
+echo Now open the minecraft launcher select the forge %MCVER% profile than run the game
 echo When you are in the main menu of the game it should say [%MDCNT%] mods active in the bottom left of the screen
 echo If it does Congradulations!
 echo If there were any errors or any of the mods did not copy over or work correctly feel free to dm me
@@ -224,25 +167,33 @@ if /I "%c%" EQU "debug" (
 								if /I "%c%" EQU "pog" (
 									goto :pog
 								) else (
-									if /I "%c%" EQU "cool berd" (
-										goto :pic
-									) else (
-										if /I "%c%" EQU "build" (
-											call :c 0a "[TMI]"&call :c %DCOL% "Creating directory system" /n &call :cb
-											if exist "%appdata%\.minecraft\mods" (
-												robocopy "%appdata%\.minecraft\mods" "%cd%\data\mods" /e
-												call :c 0a "[TMI]"&call :c %DCOL% "Done building" /n &call :cb
-											) else (
-												call :c 0A "[TMI]"&call :c %DCOL% "No mods installed" /n&call :cb
-												call :c 0A "     "&call :c %DCOL% "Nothing to be packaged" /n&call :cb
-											)
+									if /I "%c%" EQU "build" (
+										call :c 0a "[TMI]"&call :c %DCOL% "Creating directory system" /n &call :cb
+										if exist "%appdata%\.minecraft\mods" (
+											robocopy "%appdata%\.minecraft\mods" "%cd%\data\mods" /e
+											call :c 0a "[TMI]"&call :c %DCOL% "Done building" /n &call :cb
 										) else (
-											if /i "%c:~0,6%"=="delete" (
-												call :dlet %c%
-											) else (
-												call :c 0A "[TMI]"&call :c %DCOL% "Unknown or invalid command" /n  
-												call :c 0A "     "&call :c %DCOL% "Type [ help ] for a list of commands" /n &call :cb      
-											)
+											call :c 0A "[TMI]"&call :c %DCOL% "No mods installed" /n&call :cb
+											call :c 0A "     "&call :c %DCOL% "Nothing to be packaged" /n&call :cb
+										)
+									) else (
+										if /i "%c:~0,6%"=="delete" (
+											call :dlet %c%
+										) else (
+                                            if /i "%c:~0,5%"=="mcver" (
+                                                call :smcv %c%
+                                            ) else (
+                                                if /I "%c%" EQU "quickstart" (
+                                                    goto :qs
+                                                ) else (
+                                                    if /I "%c%" EQU "qs" (
+                                                        goto :qs
+                                                    ) else (
+                                                        call :c 0A "[TMI]"&call :c %DCOL% "Unknown or invalid command" /n  
+                                                        call :c 0A "     "&call :c %DCOL% "Type [ help ] for a list of commands" /n &call :cb      
+                                                    )
+                                                )
+                                            )
 										)
 									)
 								)
@@ -291,6 +242,50 @@ For /R "%Folder2%" %%x In (*.*) Do (
 @ goto :console 
 
 
+:qs
+call :c %DCOL% " =============================================================================== " /n
+call :c %DCOL% " | Quick start guide                                                           | " /n
+call :c %DCOL% " =============================================================================== " /n
+call :c %DCOL% " These are a few things that you should do to get everything setup               " /n
+call :c %DCOL% "                                                                                 " /n
+call :c %DCOL% "    Make sure you have your mods alraidy installed in your minecraft directory   " /n
+call :c %DCOL% "    (you can use [ls i] to check if the mods are detected)                       " /n
+call :c %DCOL% "                                                                                 " /n
+call :c %DCOL% "    Than just run the [build] command and that will bundle the mods              " /n
+call :c %DCOL% "                                                                                 " /n
+call :c %DCOL% "    than you can run [compare] to compare the installed and bundled mods         " /n
+call :c %DCOL% "                                                                                 " /n
+call :c %DCOL% "    than just drag the mod handeler (forge, fabric, etc.) into the data folder   " /n
+call :c %DCOL% "    which in the same folder as this file and rename it to forge.jar             " /n
+call :c %DCOL% "    (couldent bother to make it changable but you could always edit this file)   " /n
+call :c %DCOL% "                                                                                 " /n
+call :c %DCOL% "    than finaly the last thing to do is set the displayed mc version             " /n
+call :c %DCOL% "    to do that open up this file in any text editor(notepad works fine) and write" /n
+call :c %DCOL% "    your mc version you are using at the end of the line that says 'set MCVER='  " /n
+call :c %DCOL% "    an example is 'set MCVER=1.12.2'                                             " /n
+call :c %DCOL% "                                                                                 " /n
+call :c %DCOL% "    Congradulations the installer should be setup now!                           " /n
+call :c %DCOL% "    you can run [help] command to see all available commands                     " /n
+call :c %DCOL% "                                                                                 " /n
+call :c %DCOL% "    now you can just sen the folder that contains this program and the data      " /n
+call :c %DCOL% "    folder to your friends so they can easily install modpacks!" /n
+call :cb
+@ goto :console
+
+
+
+:smcv
+if defined dbg (
+  call :c 0a "[Debug]"&call :c %DCOL% "Command perameters: %~1 %~2 %~3" /n &call :cb
+)
+if /I "%~3" NEQ "" (
+  call :c 0A "[TMI]"&call :c %DCOL% "Too many parameters" /n
+  call :c 0A "     "&call :c %DCOL% "E.g:[ mcver 1.7.10 ] will set the mc version shown in installer to 1.7.10 NEQ" /n&call :cb
+) else (
+  set MCVER=%~2
+)
+  call :c 0A "[TMI]"&call :c %DCOL% "Mc version is currently set to [%MCVER%]" /n 
+@ goto :console
 
 
 
@@ -382,10 +377,11 @@ call :c %DCOL% "    debug     - Toggles debug mode                              
 call :c %DCOL% "    fresh     - Resets the console environment                                   " /n
 call :c %DCOL% "    cls       - Clears the console                                               " /n
 rem call :c %DCOL% "    mcnt      - Displays the number of installed and bundled mods                " /n      BROKEN ATM
-call :c %DCOL% "    Build     - Builds file system and adds mods from installed mod directory    " /n
-call :c %DCOL% "    Delete    - Deletes a mod directory use i or b parameters                    " /n
+call :c %DCOL% "    build     - Builds file system and adds mods from installed mod directory    " /n
+call :c %DCOL% "    delete    - Deletes a mod directory use i or b parameters                    " /n
+rem call :c %DCOL% "    mcver     - Sets the mc ver displayed in the main installer path             " /n
 call :c %DCOL% "    " /n
-call :c %DCOL% "    Note: More features are still to be added" /n
+call :c %DCOL% "    Note: More features are still to be added(proberably)" /n
 call :cb
 @ goto :console
 rem colored text stuff:
